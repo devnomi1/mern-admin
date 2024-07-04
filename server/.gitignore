@@ -1,2 +1,48 @@
-./node_modules
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+# Comment in the public line in if your project uses Gatsby and *not* Next.js
+# https://nextjs.org/blog/next-9-1#public-directory-support
+# public
+
+# vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# PM2 Logs
+/logs/*
+
+# To write xml file for E Prescribing
+ePrescribing/
+
+# Any temperary files uploaded
+uploads/
+
+# Environment variables
 .env
+.env.local
+.env.dev
+.env.staging
+.env.staging.secondary
+.env.live
+.env.live.secondary
+.env.local.backup
+/node_modules
