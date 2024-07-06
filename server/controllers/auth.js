@@ -1,9 +1,8 @@
 const User = require("../models/User");
-const bcrypt = require("bcrypt");
+
 // *-----------
 // home logic
 // *-----------
-
 const home = async (req, res) => {
   try {
     res.status(200).send("welcome to the home using controll and router ");
@@ -13,9 +12,8 @@ const home = async (req, res) => {
 };
 
 // *-----------
-// home logic
+// Register logic
 // *-----------
-
 const register = async (req, res) => {
   try {
     const { userName, email, password, phone } = req.body;
@@ -30,15 +28,42 @@ const register = async (req, res) => {
       phone,
       password,
     });
-    res
-      .status(201)
-      .json({
-        message: "Registration Succussfully !",
-        token: await userCreated.generateToken(),
-      });
+    res.status(201).json({
+      message: "Registration Succussfully !",
+      token: await userCreated.generateToken(),
+    });
   } catch (error) {
     res.status(400).json("internal server error");
+    next(error);
   }
 };
 
-module.exports = { home, register };
+//--------------
+// login logic
+//------------------
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const userExist = await User.findOne({ email });
+
+    if (!userExist) {
+      return res.status(400).json({ message: "invalid credential" });
+    }
+
+    const isPasswordValid = await userExist.comparePassword(password);
+    if (isPasswordValid) {
+      res.status(200).json({
+        message: "Login Succussfully!",
+        token: await userExist.generateToken(),
+        user: userExist,
+      });
+    } else {
+      res.status(401).json({ message: "invalid email and password" });
+    }
+  } catch (error) {
+    // res.status(500).json("internal server error");
+    next(error);
+  }
+};
+
+module.exports = { home, register, login };
