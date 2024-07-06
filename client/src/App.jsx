@@ -9,7 +9,7 @@ import Signup from "./pages/Signup";
 import Contact from "./pages/Contact";
 import Services from "./pages/Services";
 import Navbar from "./components/Navbar";
-import "./App.css";
+
 
 function App() {
   return (
