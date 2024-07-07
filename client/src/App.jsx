@@ -9,7 +9,7 @@ import Signup from "./pages/Signup";
 import Contact from "./pages/Contact";
 import Services from "./pages/Services";
 import Navbar from "./components/Navbar";
-
+import Error404 from "./pages/Error404";
 
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/service" element={<Services />} />
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
     </>
