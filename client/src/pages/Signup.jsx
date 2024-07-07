@@ -1,20 +1,38 @@
 import React, { useState } from "react";
+import { useNavigation } from "react-router-dom";
 
 const Signup = () => {
   const [user, setUser] = useState({
-    username: "",
+    username: "nomi",
     email: "",
     phone: "",
     password: "",
   });
-
-  const handleChange = (e) => {
+  const navigate = useNavigation;
+  const handleChange = async (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
-  const handleSubmint = (e) => {
+
+  const handleSubmint = async (e) => {
     e.preventDefault();
     console.log(user);
+    try {
+      const res = await fetch("http://localhost:8080/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      if (res.ok) {
+        setUser({ username: "", email: "", phone: "", password: "" });
+        navigate("/");
+      }
+      console.log(res);
+    } catch (error) {
+      console.log("signup: ", error);
+    }
   };
   return (
     <section className="container">

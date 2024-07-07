@@ -1,20 +1,33 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: "noumanijaz03@gmail.com",
+    password: "hellonomi12",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
-  const handleSubmint = (e) => {
+  const handleSubmint = async (e) => {
     e.preventDefault();
+    console.log(user);
     try {
-      console.log(user);
-    } catch (error) {}
+      const res = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      navigate("/");
+      console.log(await res.json());
+    } catch (error) {
+      console.log("signup: ", error);
+    }
   };
   return (
     <section className="container">

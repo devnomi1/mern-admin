@@ -9,13 +9,23 @@ const Contact = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setContact({ ...user, [name]: value });
+    setContact({ ...contact, [name]: value });
   };
-  const handleSubmint = (e) => {
+  const handleSubmint = async (e) => {
     e.preventDefault();
+    console.log(contact);
     try {
-      console.log(contact);
-    } catch (error) {}
+      const res = await fetch("http://localhost:8080/form/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contact),
+      });
+      console.log(res);
+    } catch (error) {
+      console.log("signup: ", error);
+    }
   };
   return (
     <>
