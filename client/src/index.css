@@ -61,6 +61,16 @@ ul {
   margin: 0 auto;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & .brand-logo {
+    font-size: 5rem;
+    font-weight: 500;
+  }
+}
+
 .grid {
   display: grid;
   gap: 6.4rem;
@@ -252,8 +262,7 @@ a.active {
   align-items: center;
   justify-content: center;
 }
- .content {
- 
+.content {
   text-align: center;
 }
 .content h2.header {

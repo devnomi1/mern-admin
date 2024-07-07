@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { storeTokenInLS } = useAuth();
+
   const [user, setUser] = useState({
     email: "noumanijaz03@gmail.com",
     password: "hellonomi12",
@@ -12,6 +15,7 @@ const Login = () => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
+
   const handleSubmint = async (e) => {
     e.preventDefault();
     console.log(user);
@@ -23,12 +27,18 @@ const Login = () => {
         },
         body: JSON.stringify(user),
       });
-      navigate("/");
-      console.log(await res.json());
+      if (res.ok) {
+        const data = await res.json();
+        alert(data.message);
+        storeTokenInLS(data.token);
+        setUser({ email: "", password: "" });
+        navigate("/");
+      }
     } catch (error) {
       console.log("signup: ", error);
     }
   };
+
   return (
     <section className="container">
       <main>
